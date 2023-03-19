@@ -35,7 +35,7 @@ section {
 .list-container,
 .stats-container {
 	width: calc(100% - 5em);
-	height: calc(100% - 5em);
+	height: calc(100vh - 5em);
 	background: var(--color-60);
 	border-radius: 3em;
 	display: flex;
@@ -47,12 +47,13 @@ section {
 	margin: 4em;
 }
 
-.task-input {
+.task-input,
+.task-display-p {
 	width: 80%;
 	text-align: center;
 	background: var(--color-30);
 	color: var(--color-10);
-	border-radius: 3em;
+	border-radius: 1.5em;
 	border: transparent;
 	outline: 1px solid var(--color-10);
 	box-shadow: 0 0 10px 1px var(--color-10);
@@ -65,7 +66,8 @@ section {
 	outline: transparent;
 }
 
-.task-add {
+.task-add,
+.task-display-button {
 	margin: auto 0 auto auto;
 	width: 100px;
 	border-radius: 3em;
@@ -81,12 +83,38 @@ section {
 }
 
 .task-add:hover,
-.task-add:focus-visible {
+.task-add:focus-visible,
+.task-display-button:hover,
+.task-display-button:focus-visible {
 	outline: transparent;
 }
 
 .task-display {
-	outline: 1px solid red;
-	height: 100%;
-	margin: 0 3em 3em;
+	margin: 0 3.5em 3.5em;
+	display: flex;
+	flex-flow: column;
+	gap: 1em;
+	overflow: auto;
+}
+.task-display-div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	outline: 1px solid #ddd;
+	padding: 0.5em;
+	border-radius: 1.5em;
+}
+.task-display-div > p {
+	margin: 0;
+	box-shadow: 0 0 5px 1px slategray;
+	outline: none;
+	overflow-wrap: break-word;
+}
+.task-display-div > button {
+	box-shadow: 0 0 5px 1px slategray;
+	outline: 1px solid slategray;
+}
+.task-display-div > button:hover,
+.task-display-div > button:focus-visible {
+	outline: transparent;
 }

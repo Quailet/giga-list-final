@@ -1,4 +1,10 @@
-const taskTable = ["asd", "233r"];
+const taskTable = [
+	"asd",
+	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
+	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
+	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
+	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
+];
 
 class Builder {
 	constructor(element) {
@@ -9,8 +15,35 @@ class Builder {
 		const p = document.createElement("p");
 
 		p.textContent = text;
+		p.setAttribute("class", "task-display-p");
 
 		return p;
+	}
+
+	static createDiv() {
+		const div = document.createElement("div");
+
+		div.setAttribute("class", "task-display-div");
+
+		return div;
+	}
+
+	static createButton() {
+		const button = document.createElement("button");
+
+		button.setAttribute("class", "task-display-button");
+		button.textContent = "Delete task";
+
+		return button;
+	}
+
+	static createTask(text) {
+		const task = Builder.createDiv();
+
+		task.appendChild(Builder.createP(text));
+		task.appendChild(Builder.createButton());
+
+		return task;
 	}
 
 	deleteTasks() {
@@ -23,7 +56,7 @@ class Builder {
 
 	addTasks(table) {
 		table.forEach((e) => {
-			this.element.appendChild(Builder.createP(e));
+			this.element.appendChild(Builder.createTask(e));
 		});
 
 		return this;
