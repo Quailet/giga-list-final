@@ -9,6 +9,7 @@
 * {
 	font-family: "comic sans ms";
 	font-weight: 500;
+	/* outline: 1px solid red; */
 }
 
 body {
@@ -20,7 +21,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	display: grid;
-	grid-template: auto/70% auto;
+	grid-template: auto/2fr 1fr;
 	background: var(--color-30);
 }
 
@@ -28,23 +29,23 @@ section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	height: 100%;
+	/* width: 100%;
+	height: 100%; */
 }
 
 .list-container,
 .stats-container {
-	width: calc(100% - 5em);
-	height: calc(100vh - 5em);
+	width: calc(100% - 5rem);
+	height: calc(100vh - 5rem);
 	background: var(--color-60);
-	border-radius: 3em;
+	border-radius: 3rem;
 	display: flex;
 	flex-flow: column;
 }
 
 .task-tools {
 	display: flex;
-	margin: 4em;
+	margin: 4rem;
 }
 
 .task-input,
@@ -67,7 +68,7 @@ section {
 }
 
 .task-add,
-.task-display-button {
+.task-delete {
 	margin: auto 0 auto auto;
 	width: 100px;
 	border-radius: 3em;
@@ -80,20 +81,31 @@ section {
 	padding: 2px;
 	height: 2.5em;
 	padding: 0;
+	transition: transform 0.1s;
+}
+
+.task-delete {
+	box-shadow: 0 0 5px 1px slategray;
+	outline: 1px solid slategray;
 }
 
 .task-add:hover,
 .task-add:focus-visible,
-.task-display-button:hover,
-.task-display-button:focus-visible {
+.task-delete:hover,
+.task-delete:focus-visible {
 	outline: transparent;
 }
 
+.task-add:active,
+.task-delete:active {
+	transform: translate(1px, 1px);
+}
+
 .task-display {
-	margin: 0 3.5em 3.5em;
+	margin: 0 3.5rem 3.5rem;
 	display: flex;
 	flex-flow: column;
-	gap: 1em;
+	gap: 1rem;
 	overflow: auto;
 }
 .task-display-div {
@@ -105,17 +117,10 @@ section {
 	padding: 0.5em;
 	border-radius: 1.5em;
 }
+
 .task-display-div > p {
 	margin: 0;
 	box-shadow: 0 0 5px 1px slategray;
 	outline: none;
 	overflow-wrap: break-word;
-}
-.task-display-div > button {
-	box-shadow: 0 0 5px 1px slategray;
-	outline: 1px solid slategray;
-}
-.task-display-div > button:hover,
-.task-display-div > button:focus-visible {
-	outline: transparent;
 }

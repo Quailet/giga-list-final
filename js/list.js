@@ -1,10 +1,8 @@
-const taskTable = [
-	"asd",
-	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
-	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
-	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
-	"233rsdfaaaaaaaaaaaaaaaaaaaaaaaaa afsdasfdasfsfsfdsafasdsdioioioioioioioioioioioioioioioioioioioioioioioioioioiob aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfg fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
-];
+import Cookies from "../js/js.cookie.mjs";
+
+let taskTable;
+
+Cookies.get("lista") ? (taskTable = JSON.parse(Cookies.get("lista"))) : (taskTable = ["your tasks"]);
 
 class Builder {
 	constructor(element) {
@@ -31,7 +29,7 @@ class Builder {
 	static createButton() {
 		const button = document.createElement("button");
 
-		button.setAttribute("class", "task-display-button");
+		button.setAttribute("class", "task-delete");
 		button.textContent = "Delete task";
 
 		return button;
@@ -46,37 +44,51 @@ class Builder {
 		return task;
 	}
 
-	deleteTasks() {
+	deleteTask() {}
+
+	displayTasks() {
 		while (this.element.firstChild) {
-			this.element.removeChild(this.element.firstChild);
+			this.element.firstChild.remove();
 		}
 
-		return this;
-	}
-
-	addTasks(table) {
-		table.forEach((e) => {
+		taskTable.forEach((e) => {
 			this.element.appendChild(Builder.createTask(e));
 		});
 
-		return this;
+		addDeleteListeners();
 	}
+}
 
-	displayTasks() {
-		this.deleteTasks().addTasks(taskTable);
-	}
+function addDeleteListeners() {
+	document.querySelectorAll(".task-delete").forEach((e, index) => {
+		e.addEventListener("click", () => {
+			e.parentElement.remove();
+
+			taskTable.splice(index, 1);
+
+			Cookies.set("lista", taskTable, { expires: 54 });
+
+			addDeleteListeners();
+		});
+	});
 }
 
 const TaskEntity = new Builder(document.querySelector(".task-display"));
 
 TaskEntity.displayTasks();
 
-addButton = document.querySelector(".task-add");
+const addButton = document.querySelector(".task-add");
 
 addButton.addEventListener("click", () => {
-	input = document.querySelector(".task-input");
+	let input = document.querySelector(".task-input");
+
+	if (!input.value) return;
 
 	taskTable.push(input.value);
+
+	Cookies.set("lista", taskTable, { expires: 54 });
+
+	console.log(Cookies.get("lista"));
 
 	TaskEntity.displayTasks();
 
