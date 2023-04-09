@@ -44,7 +44,19 @@ class Builder {
 		return task;
 	}
 
-	deleteTask() {}
+	static addDeleteListeners() {
+		document.querySelectorAll(".task-delete").forEach((e, index) => {
+			e.addEventListener("click", () => {
+				e.parentElement.remove();
+
+				taskTable.splice(index, 1);
+
+				Cookies.set("lista", taskTable, { expires: 54 });
+
+				Builder.addDeleteListeners();
+			});
+		});
+	}
 
 	displayTasks() {
 		while (this.element.firstChild) {
@@ -55,22 +67,8 @@ class Builder {
 			this.element.appendChild(Builder.createTask(e));
 		});
 
-		addDeleteListeners();
+		Builder.addDeleteListeners();
 	}
-}
-
-function addDeleteListeners() {
-	document.querySelectorAll(".task-delete").forEach((e, index) => {
-		e.addEventListener("click", () => {
-			e.parentElement.remove();
-
-			taskTable.splice(index, 1);
-
-			Cookies.set("lista", taskTable, { expires: 54 });
-
-			addDeleteListeners();
-		});
-	});
 }
 
 const TaskEntity = new Builder(document.querySelector(".task-display"));
