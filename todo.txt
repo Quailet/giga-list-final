@@ -1,1 +1,1 @@
-task counter, responsiveness, scrollbar style, editable tasks
+task counter, responsiveness, scrollbar style, editable tasks, change colors
