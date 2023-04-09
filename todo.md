@@ -1,8 +1,7 @@
 # plans
 
 *   task counter
-*   responsiveness
+*   grid in stats
 *   scrollbar style
 *   editable tasks
-*   change colors
 *   ability to rearrange tasks

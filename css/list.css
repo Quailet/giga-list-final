@@ -1,9 +1,25 @@
 :root {
+	/* another teal but no */
 	/* --color-60: hsl(180, 40%, 85%);
-	--color-30: hsl(180, 50%, 75%); */
-	--color-60: #e8fafd;
+	--color-30: hsl(180, 50%, 75%);
+	--color-10: hsl(180, 100%, 25%); */
+
+	/* teal */
+	/* --color-60: #e8fafd;
 	--color-30: #c9e8e8;
-	--color-10: #008080;
+	--color-10: #008080; */
+
+	/* wheat */
+	/* --color-60: #fff0d1;
+	--color-30: #f5deb3;
+	--color-10: #e4bd51;
+	--color-grey: #968259; */
+
+	/* black */
+	--color-60: #778888cc;
+	--color-30: #667777ef;
+	--color-10: #333333ef;
+	--color-grey: #444444ef;
 }
 
 * {
@@ -18,25 +34,25 @@ body {
 }
 
 .main-container {
-	width: 100vw;
-	height: 100vh;
+	min-width: 100vw;
+	min-height: 100vh;
 	display: grid;
-	grid-template: auto/2fr 1fr;
-	background: var(--color-30);
+	grid-template: min(100vh, 2000px) / 2fr 1fr;
+	background: linear-gradient(135deg, var(--color-10), var(--color-60), var(--color-30));
 }
 
 section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* width: 100%;
-	height: 100%; */
+	width: 100%;
+	height: 100%;
 }
 
 .list-container,
 .stats-container {
 	width: calc(100% - 5rem);
-	height: calc(100vh - 5rem);
+	height: calc(100% - 5rem);
 	background: var(--color-60);
 	border-radius: 3rem;
 	display: flex;
@@ -60,6 +76,7 @@ section {
 	box-shadow: 0 0 10px 1px var(--color-10);
 	font-size: 1.5em;
 	padding: 0.5em;
+	transition: outline 0.2s;
 }
 
 .task-input:hover,
@@ -81,12 +98,12 @@ section {
 	padding: 2px;
 	height: 2.5em;
 	padding: 0;
-	transition: transform 0.1s;
+	transition: transform 0.1s, outline 0.2s;
 }
 
 .task-delete {
-	box-shadow: 0 0 5px 1px slategray;
-	outline: 1px solid slategray;
+	box-shadow: 0 0 5px 1px var(--color-grey);
+	outline: 1px solid var(--color-grey);
 }
 
 .task-add:hover,
@@ -108,19 +125,45 @@ section {
 	gap: 1rem;
 	overflow: auto;
 }
+
 .task-display-div {
 	margin: 1px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	outline: 1px solid #ddd;
+	outline: 1px solid var(--color-grey);
 	padding: 0.5em;
 	border-radius: 1.5em;
 }
 
 .task-display-div > p {
 	margin: 0;
-	box-shadow: 0 0 5px 1px slategray;
+	box-shadow: 0 0 5px 1px var(--color-grey);
 	outline: none;
 	overflow-wrap: break-word;
+}
+
+::-webkit-scrollbar {
+	width: 1rem;
+}
+
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-30);
+	border-radius: 42069px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-10);
+}
+
+body::-webkit-scrollbar {
+	display: none;
+}
+
+@media screen and (max-width: 1300px) {
+	.main-container {
+		grid-template: min(100vh, 2000px) 400px / 100%;
+		min-width: 870px;
+	}
 }
