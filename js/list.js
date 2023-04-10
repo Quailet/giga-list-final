@@ -1,8 +1,10 @@
 import Cookies from "../js/js.cookie.mjs";
 
-let taskTable;
+let taskObject;
 
-Cookies.get("lista") ? (taskTable = JSON.parse(Cookies.get("lista"))) : (taskTable = ["your tasks"]);
+Cookies.get("lista")
+	? (taskObject = JSON.parse(Cookies.get("lista")))
+	: (taskObject = { taskTable: [], addedTasks: 0, deletedTasks: 0 });
 
 class Builder {
 	constructor(element) {
@@ -49,9 +51,11 @@ class Builder {
 			e.addEventListener("click", () => {
 				e.parentElement.remove();
 
-				taskTable.splice(index, 1);
+				taskObject.taskTable.splice(index, 1);
 
-				Cookies.set("lista", taskTable, { expires: 54 });
+				showStats();
+
+				Cookies.set("lista", taskObject, { expires: 54 });
 
 				Builder.addDeleteListeners();
 			});
@@ -63,9 +67,17 @@ class Builder {
 			this.element.firstChild.remove();
 		}
 
-		taskTable.forEach((e) => {
+		taskObject.taskTable.forEach((e) => {
 			this.element.appendChild(Builder.createTask(e));
 		});
+
+		document.querySelectorAll(".task-delete").forEach((e) => {
+			e.addEventListener("click", () => {
+				taskObject.deletedTasks++;
+			});
+		});
+
+		showStats();
 
 		Builder.addDeleteListeners();
 	}
@@ -82,9 +94,10 @@ addButton.addEventListener("click", () => {
 
 	if (!input.value) return;
 
-	taskTable.push(input.value);
+	taskObject.taskTable.push(input.value);
+	taskObject.addedTasks++;
 
-	Cookies.set("lista", taskTable, { expires: 54 });
+	Cookies.set("lista", taskObject, { expires: 54 });
 
 	console.log(Cookies.get("lista"));
 
@@ -92,3 +105,8 @@ addButton.addEventListener("click", () => {
 
 	input.value = "";
 });
+
+function showStats() {
+	document.querySelector(".stats-added > h1").textContent = taskObject.addedTasks;
+	document.querySelector(".stats-deleted > h1").textContent = taskObject.deletedTasks;
+}
