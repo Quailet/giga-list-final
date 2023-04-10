@@ -176,10 +176,12 @@ body::-webkit-scrollbar {
 
 .stats-container > div > p {
 	font-size: 1.4rem;
+	color: var(--color-10);
 }
 
 .stats-container > div > h1 {
 	font-size: 4rem;
+	color: var(--color-10);
 }
 
 hr {
