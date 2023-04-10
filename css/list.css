@@ -37,7 +37,7 @@ body {
 	min-width: 100vw;
 	min-height: max(900px, 100vh);
 	display: grid;
-	grid-template: min(100%, 2000px) / 2fr 1fr;
+	grid-template: clamp(900px, 100vh, 2000px) / 2fr 1fr;
 	background: linear-gradient(135deg, var(--color-10), var(--color-60), var(--color-30));
 }
 
