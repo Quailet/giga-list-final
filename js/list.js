@@ -55,7 +55,7 @@ class Builder {
 
 				showStats();
 
-				Cookies.set("lista", taskObject, { expires: 54 });
+				Cookies.set("lista", taskObject, { expires: 540 });
 
 				Builder.addDeleteListeners();
 			});
@@ -97,7 +97,7 @@ addButton.addEventListener("click", () => {
 	taskObject.taskTable.push(input.value);
 	taskObject.addedTasks++;
 
-	Cookies.set("lista", taskObject, { expires: 54 });
+	Cookies.set("lista", taskObject, { expires: 540 });
 
 	console.log(Cookies.get("lista"));
 
