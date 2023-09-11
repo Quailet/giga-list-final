@@ -1,10 +1,9 @@
-import Cookies from "../js/js.cookie.mjs";
-
 let taskObject;
 
-Cookies.get("lista")
-	? (taskObject = JSON.parse(Cookies.get("lista")))
-	: (taskObject = { taskTable: [], addedTasks: 0, deletedTasks: 0 });
+"lista" in localStorage ? (taskObject = JSON.parse(localStorage.getItem("lista"))) : (taskObject = { taskTable: [], addedTasks: 0, deletedTasks: 0 });
+
+console.log(localStorage.getItem("lista"));
+console.log(taskObject);
 
 class Builder {
 	constructor(element) {
@@ -55,7 +54,7 @@ class Builder {
 
 				showStats();
 
-				Cookies.set("lista", taskObject, { expires: 540 });
+				localStorage.setItem("lista", JSON.stringify(taskObject));
 
 				Builder.addDeleteListeners();
 			});
@@ -97,9 +96,10 @@ addButton.addEventListener("click", () => {
 	taskObject.taskTable.push(input.value);
 	taskObject.addedTasks++;
 
-	Cookies.set("lista", taskObject, { expires: 540 });
+	localStorage.setItem("lista", JSON.stringify(taskObject));
 
-	console.log(Cookies.get("lista"));
+	console.log(localStorage.getItem("lista"));
+	console.log(taskObject);
 
 	TaskEntity.displayTasks();
 
