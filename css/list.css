@@ -49,6 +49,10 @@ section {
 	height: 100%;
 }
 
+.list-container {
+	min-height: 500px;
+}
+
 .list-container,
 .stats-container {
 	width: calc(100% - 5rem);
